@@ -417,7 +417,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             EditLabel.Caption = #25968#25454#28857'ID'
             LabelPosition = lpLeft
             TabOrder = 3
-            Text = '432'
+            Text = '118'
           end
           object LabeledEdit_PubParsedValueQ: TLabeledEdit
             Left = 192
