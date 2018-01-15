@@ -74,13 +74,13 @@ type
     PWideChar); stdcall;
 
   /// <summary>
-  /// 接收设备数据点推送 事件 【云组态】
+  /// 接收数据点值推送 事件 【云组态】
   /// </summary>
   /// <remarks>
   /// 用户需订阅主题:
   //        $USR/DevJsonTx/<DevId>
   /// <para>$USR/DevJsonTx/&lt;DevId&gt;</para>
-  /// <para>才能接收设备数据点值推送</para>
+  /// <para>才能接收数据点值推送</para>
   /// JsonStr 接收到的json格式字符串, 格式为:
   /// <para>   {                                                      </para>
   /// <para>       "dataPoints": [                                    </para>
@@ -141,13 +141,13 @@ type
   TUSR_RcvParsedDevAlarmPushEvent = TUSR_RcvParsedEvent;
 
   /// <summary>
-  /// 接收设备数据点操作应答 事件 【云组态】
+  /// 接收数据点操作应答 事件 【云组态】
   /// </summary>
   /// <remarks>
   /// 用户需订阅主题:
   //        $USR/JsonTx/<帐号>/+
   /// <para>$USR/JsonTx/&lt;帐号&gt;/&lt;DevId&gt;</para>
-  /// <para>才能接收到设备数据点操作应答</para>
+  /// <para>才能接收到数据点操作应答</para>
   /// <para>（目前只用于 COAP类型的设备，并且设备作为 modbus 主机）</para>
   /// JsonStr 接收到的json格式字符串, 格式为:
   /// <para>   {                                                             </para>
@@ -334,16 +334,16 @@ function USR_OnPubAck(OnPubAck: TUSR_PubAckEvent): Boolean; stdcall; external
 csUsrCloudDll;
 
 /// <summary>
-/// 设置单台设备数据点值【云组态】
+/// 设置数据点值【云组态】
 /// </summary>
-function USR_PublishParsedSetDataPoint(DevId, PointId, Value: PWideChar):
-  LongInt; stdcall; external csUsrCloudDll;
+function USR_PublishParsedSetSlaveDataPoint(DevId, SlaveIndex, PointId, Value:
+  PWideChar): LongInt; stdcall; external csUsrCloudDll;
 
 /// <summary>
-/// 查询单台设备数据点值【云组态】
+/// 查询数据点值【云组态】
 /// </summary>
-function USR_PublishParsedQueryDataPoint(DevId, PointId: PWideChar): LongInt;
-stdcall; external csUsrCloudDll;
+function USR_PublishParsedQuerySlaveDataPoint(DevId, SlaveIndex, PointId:
+  PWideChar): LongInt; stdcall; external csUsrCloudDll;
 
 /// <summary>
 /// 向单台设备推送原始数据流 【云交换机】
@@ -364,7 +364,7 @@ function USR_PublishRawToUser(Username: PWideChar; pData: PByte; DataLen:
 // ==============================================================================
 
 /// <summary>
-/// 设置 接收设备数据点推送 回调函数 【云组态】
+/// 设置 接收数据点值推送 回调函数 【云组态】
 /// </summary>
 function USR_OnRcvParsedDataPointPush(OnRcvParsedDataPointPush:
   TUSR_RcvParsedDataPointPushEvent): Boolean; stdcall; external csUsrCloudDll;
@@ -381,7 +381,7 @@ function USR_OnRcvParsedDevStatusPush(OnRcvParsedDevStatusPush:
 function USR_OnRcvParsedDevAlarmPush(OnRcvParsedDevAlarmPush:
   TUSR_RcvParsedDevAlarmPushEvent): Boolean; stdcall; external csUsrCloudDll;
 /// <summary>
-/// 设置 接收设备数据点操作应答 【云组态】
+/// 设置 接收数据点操作应答 【云组态】
 /// </summary>
 
 function USR_OnRcvParsedOptionResponseReturn(OnRcvParsedOptionResponseReturn:
@@ -451,6 +451,24 @@ stdcall; external csUsrCloudDll;
 /// </remarks>
 function USR_OnRcv(OnRcv: TUSR_RcvEvent): Boolean; stdcall; external
 csUsrCloudDll;
+
+/// <summary>
+/// 设置设备数据点值【云组态】 【不再推荐使用】
+/// </summary>
+/// <remarks>
+///   用 USR_PublishParsedSetSlaveDataPoint 代替
+/// </remarks>
+function USR_PublishParsedSetDataPoint(DevId, PointId, Value: PWideChar):
+  LongInt; stdcall; external csUsrCloudDll;
+
+/// <summary>
+/// 查询设备数据点值【云组态】 【不再推荐使用】
+/// </summary>
+/// <remarks>
+///   用 USR_PublishParsedSlaveQueryDataPoint 代替
+/// </remarks>
+function USR_PublishParsedQueryDataPoint(DevId, PointId: PWideChar): LongInt;
+stdcall; external csUsrCloudDll;
 
 implementation
 

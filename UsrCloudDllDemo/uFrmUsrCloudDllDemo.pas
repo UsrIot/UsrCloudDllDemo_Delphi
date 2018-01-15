@@ -64,6 +64,7 @@ type
     lblPubData: TLabel;
     lblPubParsedValueQ: TLabel;
     Label1: TLabel;
+    LabeledEdit_PubParsedSlaveIndex: TLabeledEdit;
     procedure btnVerClick(Sender: TObject);
     procedure btnConnClick(Sender: TObject);
     procedure btnInitClick(Sender: TObject);
@@ -121,7 +122,7 @@ procedure UnSubscribeAck_CBF(MessageID: LongInt;
 { 接收数据回调函数 }
 
 /// <summary>
-///   接收 设备数据点推送 回调函数【云组态】
+///   接收 数据点值推送 回调函数【云组态】
 /// </summary>
 procedure RcvParsedDataPointPush_CBF(MessageID: LongInt;
   DevId, JsonStr: PWideChar); stdcall;
@@ -139,7 +140,7 @@ procedure RcvParsedDevAlarmPush_CBF(MessageID: LongInt;
   DevId, JsonStr: PWideChar); stdcall;
 
 /// <summary>
-///   接收 设备数据点操作应答 回调函数 【云组态】
+///   接收 数据点操作应答 回调函数 【云组态】
 /// </summary>
 procedure RcvParsedOptionResponseReturn_CBF(MessageID: LongInt;
   DevId, JsonStr: PWideChar); stdcall;
@@ -204,13 +205,16 @@ end;
 
 // 推送
 
+//查询数据点值【云组态】
+
 procedure TFrmUsrCloudDllDemo.btnPublishParsedQueryDataPointClick
   (Sender: TObject);
 var
   viMsgId           : Integer;
 begin
-  viMsgId := USR_PublishParsedQueryDataPoint
+  viMsgId := USR_PublishParsedQuerySlaveDataPoint
     (PWideChar(LabeledEdit_PubParsedDev.Text),
+    PWideChar(LabeledEdit_PubParsedSlaveIndex.Text),
     PWideChar(LabeledEdit_PubParsedPoint.Text));
   if viMsgId > -1 then
     Log('消息已推送 MsgId:' + IntToStr(viMsgId))
@@ -218,15 +222,16 @@ begin
     Log('消息推送失败');
 end;
 
-//设置单台设备数据点值【云组态】
+//设置数据点值【云组态】
 
 procedure TFrmUsrCloudDllDemo.btnPublishParsedSetDataPointClick
   (Sender: TObject);
 var
   viMsgId           : Integer;
 begin
-  viMsgId := USR_PublishParsedSetDataPoint
+  viMsgId := USR_PublishParsedSetSlaveDataPoint
     (PWideChar(LabeledEdit_PubParsedDev.Text),
+    PWideChar(LabeledEdit_PubParsedSlaveIndex.Text),
     PWideChar(LabeledEdit_PubParsedPoint.Text),
     PWideChar(LabeledEdit_PubParsedValueS.Text));
   if viMsgId > -1 then
@@ -444,7 +449,7 @@ begin
     USR_OnRcvParsedDevStatusPush(RcvParsedDevStatusPush_CBF);
     // 接收 设备报警推送
     USR_OnRcvParsedDevAlarmPush(RcvParsedDevAlarmPush_CBF);
-    // 接收 设备数据点操作应答
+    // 接收 数据点操作应答
     USR_OnRcvParsedOptionResponseReturn(RcvParsedOptionResponseReturn_CBF)
   end;
 end;
@@ -549,14 +554,15 @@ var
   vJv, vJv2         : TJSONValue;
   vJa               : TJSONArray;
   i                 : Integer;
-  vsPoindId, vsValue: UTF8String;
+  vsPoindId, vsSlaveIndex, vsValue: UTF8String;
 const
   csDataPoints      : string = 'dataPoints';
+  csSlaveIndex      : string = 'slaveIndex';
   csPoindId         : string = 'pointId';
   csValue           : string = 'value';
 begin
   FrmUsrCloudDllDemo.Log(
-    '【设备数据点推送事件】' + Chr(13) + Chr(10) +
+    '【数据点值推送事件】' + Chr(13) + Chr(10) +
     'MessageID:%d' + Chr(13) + Chr(10) +
     '设备ID:%s' + Chr(13) + Chr(10)
     + 'JSON数据:%s',
@@ -576,15 +582,20 @@ begin
         begin
           vJv2 := vJa.Items[i];
           if (vJv2.ClassType = TJSONObject) and
+            vJv2.TryGetValue(csSlaveIndex, vsSlaveIndex) and
             vJv2.TryGetValue(csPoindId, vsPoindId) and
             vJv2.TryGetValue(csValue, vsValue) then
           begin
-            FrmUsrCloudDllDemo.Log('【设备数据点推送事件:数据解析】数据点:%s, 值:%s',
-              [vsPoindId, vsValue]);
+            FrmUsrCloudDllDemo.Log(
+              '【数据点值推送事件:数据解析】从机序号:%s, 数据点:%s, 值:%s',
+              [vsSlaveIndex, vsPoindId, vsValue]);
           end;
 
           with FrmUsrCloudDllDemo do
-            if (WideCharToString(DevId) = LabeledEdit_PubParsedDev.Text) and
+            if (WideCharToString(DevId) = LabeledEdit_PubParsedDev.Text)
+              and
+              (vsSlaveIndex = UTF8Encode(LabeledEdit_PubParsedSlaveIndex.Text))
+              and
               (vsPoindId = UTF8Encode(LabeledEdit_PubParsedPoint.Text)) then
               LabeledEdit_PubParsedValueQ.Text := UTF8ToString(vsValue);
         end;
@@ -619,7 +630,7 @@ end;
 procedure RcvParsedOptionResponseReturn_CBF(MessageID: LongInt;
   DevId, JsonStr: PWideChar);
 begin
-  FrmUsrCloudDllDemo.Log('【 设备数据点操作应答推送事件】' + Chr(13) + Chr(10) + 'MessageID:%d'
+  FrmUsrCloudDllDemo.Log('【 数据点操作应答推送事件】' + Chr(13) + Chr(10) + 'MessageID:%d'
     + Chr(13) + Chr(10) + '设备ID:%s' + Chr(13) + Chr(10) + 'JSON数据:%s',
     [MessageID, WideCharToString(DevId), WideCharToString(JsonStr)]);
 end;

@@ -56,7 +56,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         '-----------------------------'
         '')
       ParentFont = False
-      ScrollBars = ssBoth
+      ScrollBars = ssVertical
       TabOrder = 1
       Zoom = 100
     end
@@ -372,7 +372,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
           TabOrder = 1
           object lblPubParsedValueQ: TLabel
             Left = 128
-            Top = 127
+            Top = 136
             Width = 60
             Height = 13
             Caption = #26597#35810#21040#30340#20540
@@ -382,16 +382,16 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             Top = 187
             Width = 421
             Height = 34
-            Caption = 'USR_PublishParsedSetDataPoint  '#35774#32622#21333#21488#35774#22791#25968#25454#28857#20540
+            Caption = 'USR_PublishParsedSetSlaveDataPoint  '#35774#32622#25968#25454#28857#20540
             TabOrder = 1
             OnClick = btnPublishParsedSetDataPointClick
           end
           object btnPublishParsedQueryDataPoint: TButton
             Left = 57
-            Top = 78
+            Top = 94
             Width = 421
             Height = 34
-            Caption = 'USR_PublishParsedQueryDataPoint  '#26597#35810#21333#21488#35774#22791#25968#25454#28857#20540
+            Caption = 'USR_PublishParsedQuerySlaveDataPoint  '#26597#35810#25968#25454#28857#20540
             TabOrder = 0
             OnClick = btnPublishParsedQueryDataPointClick
           end
@@ -409,7 +409,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
           end
           object LabeledEdit_PubParsedPoint: TLabeledEdit
             Left = 192
-            Top = 46
+            Top = 67
             Width = 286
             Height = 21
             EditLabel.Width = 47
@@ -421,7 +421,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
           end
           object LabeledEdit_PubParsedValueQ: TLabeledEdit
             Left = 192
-            Top = 123
+            Top = 134
             Width = 286
             Height = 21
             Cursor = crNo
@@ -436,7 +436,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
           end
           object LabeledEdit_PubParsedValueS: TLabeledEdit
             Left = 192
-            Top = 155
+            Top = 160
             Width = 286
             Height = 21
             EditLabel.Width = 60
@@ -445,6 +445,18 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             LabelPosition = lpLeft
             TabOrder = 5
             Text = '1234'
+          end
+          object LabeledEdit_PubParsedSlaveIndex: TLabeledEdit
+            Left = 192
+            Top = 41
+            Width = 286
+            Height = 21
+            EditLabel.Width = 48
+            EditLabel.Height = 13
+            EditLabel.Caption = #20174#26426#24207#21495
+            LabelPosition = lpLeft
+            TabOrder = 6
+            Text = '1'
           end
         end
       end
@@ -456,6 +468,10 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object grpSubRaw: TGroupBox
           AlignWithMargins = True
           Left = 3
