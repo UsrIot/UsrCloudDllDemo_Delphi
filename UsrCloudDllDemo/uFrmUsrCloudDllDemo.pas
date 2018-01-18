@@ -12,7 +12,6 @@ type
   TFrmUsrCloudDllDemo = class(TForm)
     Panel1: TPanel;
     grpInit_Release: TGroupBox;
-    LabeledEdit_SvrPort: TLabeledEdit;
     btnVer: TButton;
     btnInit: TButton;
     btnRelease: TButton;
@@ -21,8 +20,6 @@ type
     LabeledEdit_password: TLabeledEdit;
     btnConn: TButton;
     btnDisConn: TButton;
-    cbbHost: TComboBox;
-    Label4: TLabel;
     Panel2: TPanel;
     RichEdit1: TRichEdit;
     Panel3: TPanel;
@@ -74,7 +71,6 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
     procedure btnReleaseClick(Sender: TObject);
-    procedure cbbHostChange(Sender: TObject);
     procedure btnPublishRawToDevClick(Sender: TObject);
     procedure Label5Click(Sender: TObject);
     procedure Label6Click(Sender: TObject);
@@ -386,26 +382,6 @@ begin
   RichEdit1.Clear;
 end;
 
-procedure TFrmUsrCloudDllDemo.cbbHostChange(Sender: TObject);
-begin
-  if cbbHost.Text = 'clouddata.usr.cn' then
-  begin
-    LabeledEdit_UserName.Text := 'sdktest';
-    LabeledEdit_password.Text := 'sdktest';
-  end
-    // 以下是demo作者调试之用, 用户不必关注
-  else if cbbHost.Text = '127.0.0.1' then
-  begin
-    LabeledEdit_UserName.Text := 'admin';
-    LabeledEdit_password.Text := 'password';
-  end
-  else if cbbHost.Text = '192.168.0.26' then
-  begin
-    LabeledEdit_UserName.Text := 'testliu2';
-    LabeledEdit_password.Text := '12345678';
-  end;
-end;
-
 procedure TFrmUsrCloudDllDemo.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -423,12 +399,11 @@ end;
 // 初始化
 
 procedure TFrmUsrCloudDllDemo.btnInitClick(Sender: TObject);
-var
-  viPort            : Word;
+const
+  csHost            = 'clouddata.usr.cn'; //透传云服务器地址, 打死都不变
+  ciPort            = 1883;             //透传云服务器端口,打死都不变
 begin
-  viPort := StrToIntDef(cbbHost.Text, 1883);
-  { 初始化 }
-  if USR_Init(PWideChar(cbbHost.Text), viPort, 2) then
+  if USR_Init(PWideChar(csHost), ciPort, 2) then
   begin
     Log('初始化成功');
 

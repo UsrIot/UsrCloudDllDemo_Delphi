@@ -158,65 +158,32 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
       Align = alTop
       Caption = #9733' '#21021#22987#21270
       TabOrder = 0
-      object Label4: TLabel
-        Left = 33
-        Top = 43
-        Width = 22
-        Height = 13
-        Caption = 'Host'
-      end
-      object LabeledEdit_SvrPort: TLabeledEdit
-        Left = 61
-        Top = 67
-        Width = 130
-        Height = 21
-        EditLabel.Width = 24
-        EditLabel.Height = 13
-        EditLabel.Caption = #31471#21475
-        LabelPosition = lpLeft
-        TabOrder = 4
-        Text = '1883'
-      end
       object btnVer: TButton
-        Left = 196
-        Top = 5
-        Width = 286
-        Height = 28
+        Left = 61
+        Top = 25
+        Width = 129
+        Height = 49
         Caption = #26597#30475'DLL'#29256#26412
         TabOrder = 0
         OnClick = btnVerClick
       end
       object btnInit: TButton
-        Left = 197
-        Top = 39
-        Width = 130
+        Left = 196
+        Top = 25
+        Width = 139
         Height = 49
         Caption = 'USR_Init '#21021#22987#21270
         TabOrder = 1
         OnClick = btnInitClick
       end
       object btnRelease: TButton
-        Left = 352
-        Top = 39
-        Width = 130
+        Left = 344
+        Top = 25
+        Width = 138
         Height = 49
         Caption = 'USR_Release '#37322#25918
         TabOrder = 2
         OnClick = btnReleaseClick
-      end
-      object cbbHost: TComboBox
-        Left = 61
-        Top = 40
-        Width = 130
-        Height = 21
-        ItemIndex = 0
-        TabOrder = 3
-        Text = 'clouddata.usr.cn'
-        OnChange = cbbHostChange
-        Items.Strings = (
-          'clouddata.usr.cn'
-          '127.0.0.1'
-          '192.168.0.26')
       end
     end
     object grpConn: TGroupBox
@@ -255,16 +222,16 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
       object btnConn: TButton
         Left = 196
         Top = 18
-        Width = 130
+        Width = 139
         Height = 49
         Caption = 'USR_Connect '#36830#25509' '
         TabOrder = 1
         OnClick = btnConnClick
       end
       object btnDisConn: TButton
-        Left = 352
+        Left = 344
         Top = 18
-        Width = 130
+        Width = 138
         Height = 49
         Caption = 'USR_DisConnect '#26029#24320
         TabOrder = 2
@@ -383,7 +350,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             Width = 421
             Height = 34
             Caption = 'USR_PublishParsedSetSlaveDataPoint  '#35774#32622#25968#25454#28857#20540
-            TabOrder = 1
+            TabOrder = 6
             OnClick = btnPublishParsedSetDataPointClick
           end
           object btnPublishParsedQueryDataPoint: TButton
@@ -392,7 +359,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             Width = 421
             Height = 34
             Caption = 'USR_PublishParsedQuerySlaveDataPoint  '#26597#35810#25968#25454#28857#20540
-            TabOrder = 0
+            TabOrder = 3
             OnClick = btnPublishParsedQueryDataPointClick
           end
           object LabeledEdit_PubParsedDev: TLabeledEdit
@@ -404,7 +371,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             EditLabel.Height = 13
             EditLabel.Caption = #35774#22791'ID'
             LabelPosition = lpLeft
-            TabOrder = 2
+            TabOrder = 0
             Text = '00007867000000000001'
           end
           object LabeledEdit_PubParsedPoint: TLabeledEdit
@@ -416,7 +383,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             EditLabel.Height = 13
             EditLabel.Caption = #25968#25454#28857'ID'
             LabelPosition = lpLeft
-            TabOrder = 3
+            TabOrder = 2
             Text = '118'
           end
           object LabeledEdit_PubParsedValueQ: TLabeledEdit
@@ -455,7 +422,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
             EditLabel.Height = 13
             EditLabel.Caption = #20174#26426#24207#21495
             LabelPosition = lpLeft
-            TabOrder = 6
+            TabOrder = 1
             Text = '1'
           end
         end
@@ -468,10 +435,6 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object grpSubRaw: TGroupBox
           AlignWithMargins = True
           Left = 3

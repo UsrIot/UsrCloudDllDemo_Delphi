@@ -219,10 +219,14 @@ function USR_GetVer: LongInt; stdcall; external csUsrCloudDll;
 /// 初始化接口
 /// </summary>
 /// <remarks>
+///   Host
+///     透传云服务器地址,固定为 clouddata.usr.cn , 打死都不变。
+///   Port
+///     端口, 固定为1883, 打死都不变。
 ///   Ver
 ///     版本号, 为解决日后可能出现的兼容性问题而生。
 ///     开发者开发时用的dll版本号是多少,这里就填多少。
-/// 日后,即使新版本的处理规则变了,仍然会保持对旧版本的兼容
+///     日后,即使新版本的处理规则变了,仍然会保持对旧版本的兼容
 /// </remarks>
 function USR_Init(Host: PWideChar; Port: Word; Ver: LongInt): Boolean; stdcall;
 external csUsrCloudDll;
