@@ -575,6 +575,7 @@ begin
               LabeledEdit_PubParsedValueQ.Text := UTF8ToString(vsValue);
         end;
     end;
+    vJo.Free;
   end;
 end;
 
