@@ -101,6 +101,10 @@ var
 /// </summary>
 procedure ConnAck_CBF(ReturnCode: LongInt; Description: PWideChar); stdcall;
 /// <summary>
+///   连接遗失 回调函数
+/// </summary>
+procedure ConnLost_CBF(); stdcall;
+/// <summary>
 ///   推送响应 回调函数
 /// </summary>
 procedure PubAck_CBF(MessageID: LongInt); stdcall;
@@ -410,6 +414,8 @@ begin
     { 注册事件 }
     // 连接
     USR_OnConnAck(ConnAck_CBF);
+    // 连接遗失
+    USR_OnConnLost(ConnLost_CBF);
     // 订阅
     USR_OnSubscribeAck(SubscribeAck_CBF);
     // 取消订阅
@@ -472,12 +478,21 @@ begin
     IntToStr(ReturnCode) + ' ;' + vS);
 end;
 
+// 连接遗失 回调函数
+
+procedure ConnLost_CBF(); stdcall;
+begin
+  FrmUsrCloudDllDemo.Log('【连接遗失事件】' + #13#10 +
+    '异常断开, 请重新连接并重新订阅');
+end;
+
 // 订阅回调函数
 
 procedure SubscribeAck_CBF(MessageID: LongInt;
   SubFunName, SubParam, ReturnCode: PWideChar);
 begin
-  FrmUsrCloudDllDemo.Log('【订阅事件】'#13#10 + 'MessageID:%d'#13#10 + '函数名称:%s'#13#10
+  FrmUsrCloudDllDemo.Log('【订阅事件】'#13#10 + 'MessageID:%d'#13#10 +
+    '函数名称:%s'#13#10
     + '设备ID(或用户名):%s'#13#10 + '结果分别是:%s',
     [MessageID, WideCharToString(SubFunName), WideCharToString(SubParam),
     WideCharToString(ReturnCode)]);
@@ -490,7 +505,8 @@ procedure UnSubscribeAck_CBF(MessageID: LongInt;
 begin
   FrmUsrCloudDllDemo.Log('【取消订阅事件】'#13#10 + 'MessageID:%d'#13#10 +
     '函数名称:%s'#13#10 + '设备ID(或用户名):%s',
-    [MessageID, WideCharToString(UnSubFunName), WideCharToString(UnSubParam)]);
+    [MessageID, WideCharToString(UnSubFunName),
+    WideCharToString(UnSubParam)]);
 end;
 
 // 推送回调函数
@@ -507,7 +523,8 @@ end;
   主题 : $USR/Dev2App/<UserName>/<DevId> 或 $USR/DevTx/<DevId>
 *)
 
-procedure RcvRawFromDev_CBF(MessageID: LongInt; DevId: PWideChar; pData: PByte;
+procedure RcvRawFromDev_CBF(MessageID: LongInt; DevId: PWideChar; pData:
+  PByte;
   DataLen: Integer);
 var
   vsHexData         : string;

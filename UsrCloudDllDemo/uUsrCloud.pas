@@ -27,6 +27,11 @@ type
   stdcall;
 
   /// <summary>
+   ///   连接遗失事件
+   /// </summary>
+  TUSR_ConnLostEvent = procedure(); stdcall;
+
+  /// <summary>
   /// 推送响应 事件
   /// </summary>
   /// <remarks>
@@ -245,7 +250,7 @@ function USR_Release(): Boolean; stdcall; external csUsrCloudDll;
 /// <summary>
 /// 设置 连接响应 回调函数
 /// </summary>
-function USR_OnConnAck(OnConnAct: TUSR_ConnAckEvent): Boolean; stdcall; external
+function USR_OnConnAck(OnConnAck: TUSR_ConnAckEvent): Boolean; stdcall; external
 csUsrCloudDll;
 
 /// <summary>
@@ -258,6 +263,12 @@ csUsrCloudDll;
 /// 主动断开连接
 /// </summary>
 function USR_DisConnect(): Boolean; stdcall; external csUsrCloudDll;
+
+/// <summary>
+///   设置 连接遗失回调函数
+/// </summary>
+function USR_OnConnLost(OnConnLost: TUSR_ConnLostEvent): Boolean;
+stdcall; external csUsrCloudDll;
 
 // ==============================================================================
 // ==============================================================================

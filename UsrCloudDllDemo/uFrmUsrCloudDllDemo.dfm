@@ -435,6 +435,10 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object grpSubRaw: TGroupBox
           AlignWithMargins = True
           Left = 3
