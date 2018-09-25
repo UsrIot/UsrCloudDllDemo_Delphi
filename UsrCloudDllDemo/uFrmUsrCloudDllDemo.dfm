@@ -216,7 +216,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         EditLabel.Height = 13
         EditLabel.Caption = #23494#30721
         LabelPosition = lpLeft
-        TabOrder = 3
+        TabOrder = 1
         Text = 'sdktest'
       end
       object btnConn: TButton
@@ -225,7 +225,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         Width = 139
         Height = 49
         Caption = 'USR_Connect '#36830#25509' '
-        TabOrder = 1
+        TabOrder = 2
         OnClick = btnConnClick
       end
       object btnDisConn: TButton
@@ -234,7 +234,7 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         Width = 138
         Height = 49
         Caption = 'USR_DisConnect '#26029#24320
-        TabOrder = 2
+        TabOrder = 3
         OnClick = btnDisConnClick
       end
     end
@@ -435,10 +435,6 @@ object FrmUsrCloudDllDemo: TFrmUsrCloudDllDemo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object grpSubRaw: TGroupBox
           AlignWithMargins = True
           Left = 3
